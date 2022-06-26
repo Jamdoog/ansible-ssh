@@ -1,0 +1,13 @@
+- name: Install Authorized Keys
+  ansible.posix.authorized_key:
+    user: "{{ item.key }}"
+    state: present
+    key: "{{ item.value.authorized_keys }}"
+  with_dict: "{{ NEW_USERS }}"
+
+- name: Install SSH Key (root)
+  ansible.posix.authorized_key:
+    user: root
+    state: present
+    key: "{{ SSH_KEY_ROOT }}"
+  when: SSH_KEY_ROOT is defined

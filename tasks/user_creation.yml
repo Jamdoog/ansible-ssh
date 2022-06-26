@@ -1,0 +1,10 @@
+- name: Create Users
+  user:
+    name: "{{ item.key }}"
+    comment: "{{ item.value.comment }}"
+    groups: "{{ item.value.groups }}"
+    shell: "{{ item.value.shell }}"
+    append: yes
+    password: "{{ item.value.password | password_hash('sha512') }}"
+  with_dict: "{{ NEW_USERS }}"
+

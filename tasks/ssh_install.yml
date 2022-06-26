@@ -1,0 +1,31 @@
+---
+- name: Change SSH Server Package Name
+  set_fact: SSH_SERVER_PACKAGE="openssh"
+  when: ansible_os_family in ["Suse", "ArchLinux"]
+
+- name: Install OpenSSH
+  package:
+    name:
+      - "{{ SSH_SERVER_PACKAGE }}"
+    state: present
+
+- name: Deploy Sudoers Template
+  template:
+    src: "{{ SUDOERSTEMPLATE }}"
+    dest: "/etc/sudoers"
+    owner: root
+    group: root
+  notify: ssh_restart
+
+- name: Create Sudo Group
+  group:
+    name: sudo
+    state: present
+
+- name: Deploy SSHD Template
+  template:
+    src: "{{ SSHDTEMPLATE }}"
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+  notify: ssh_restart

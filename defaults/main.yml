@@ -1,0 +1,13 @@
+NEW_USERS:
+  jam:
+    groups: "sudo"
+    comment: "Ansible"
+    shell: "/bin/bash"
+    password: ""
+    authorized_keys: ""
+
+SUDOERSTEMPLATE: "sudoers"
+SSHDTEMPLATE: sshd_config
+SSH_SERVER_PACKAGE: "openssh-server"
+SSH_PORT: 22
+SSH_KEY_ROOT: ""

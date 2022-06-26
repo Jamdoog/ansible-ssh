@@ -1,0 +1,5 @@
+---
+- include_tasks: ssh_install.yml
+- include_tasks: priv_install.yml
+- include_tasks: user_creation.yml
+- include_tasks: auth.yml
