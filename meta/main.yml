@@ -1,8 +1,8 @@
 galaxy_info:
   author: James Ledger
   description: Ansible role to install and configure openssh-server 
-  company: 
-  role_name: ssh
+  company: James Ledger
+  role_name: el.ssh
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
@@ -31,7 +31,8 @@ galaxy_info:
   platforms:
     - name: Debian
       versions:
-        - all
+        - buster
+        - bullseye
     - name: EL
       versions:
         - 7
@@ -39,7 +40,15 @@ galaxy_info:
     - name: opensuse
       versions:
         - 15.3
-        - 15.4
+        - 15.2
+        - 15.1
+        - 15.0
+        - tumbleweed
+    - name: Ubuntu
+      versions: 
+        - jammy
+        - focal
+        - bionic
 
   galaxy_tags: []
     # List tags for your role here, one per line. A tag is a keyword that describes

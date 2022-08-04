@@ -1,0 +1,15 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Include Variables
+      include_vars: "../../defaults/main.yml"
+    - name: Update APT cache
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_os_family in ["Debian"]
+    - name: Do it
+      include_tasks: ../../tasks/main.yml
+  handlers:
+    - import_tasks: handlers/main.yml
