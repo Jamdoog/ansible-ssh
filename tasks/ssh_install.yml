@@ -1,12 +1,7 @@
 ---
-- name: Change SSH Server Package Name
-  set_fact: SSH_SERVER_PACKAGE="openssh"
-  when: ansible_os_family in ["Suse", "ArchLinux"]
-
-- name: Install OpenSSH
-  package:
-    name:
-      - "{{ SSH_SERVER_PACKAGE }}"
+- name: Create Sudo Group
+  group:
+    name: sudo
     state: present
 
 - name: Deploy Sudoers Template
@@ -17,15 +12,39 @@
     group: root
   notify: ssh_restart
 
-- name: Create Sudo Group
-  group:
-    name: sudo
-    state: present
+- name: Ensure SSHD Daemon is running
+  service:
+    name: sshd
+    state: started
 
-- name: Deploy SSHD Template
-  template:
-    src: "{{ SSHDTEMPLATE }}"
-    dest: /etc/ssh/sshd_config
-    owner: root
-    group: root
+- name: Update SSH Security (None Conditional)
+  lineinfile:
+    dest: "{{ SSHD_CONFIG }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    mode: 0644
+    validate: "sshd -T -f %s"
+  with_items:
+    - regexp: "^PasswordAuthentication"
+      line: "PasswordAuthentication {{ PASSWORD_AUTHENTICATION }}"
+    - regexp: "^PermitRootLogin"
+      line: "PermitRootLogin {{ ROOT_LOGIN }}"
+    - regexp: "^Port"
+      line: "Port {{ SSH_PORT }}"
+    - regexp: "^UseDNS"
+      line: "UseDNS {{ SSH_DNS }}"
+    - regexp: "^PermitEmptyPasswords"
+      line: "PermitEmptyPasswords {{ SSH_EMPTY_PASSWORD }}"
   notify: ssh_restart
+
+- name: Update SSH Listen Address
+  lineinfile:
+    dest: "{{ SSHD_CONFIG }}"
+    regexp: "^ListenAddress"
+    line: "ListenAddress {{ LISTEN_ADDRESS }}"
+    state: present
+    mode: 0644
+    validate: "sshd -T -f %s"
+  notify: ssh_restart
+  when: LISTEN_ADDRESS is defined

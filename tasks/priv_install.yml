@@ -1,4 +1,15 @@
+- name: Change OpenSSH Package Name (SUSE)
+  set_fact: SSH_SERVER_PACKAGE="openssh"
+  when: ansible_os_family in ["Suse"]
+
+- name: Install OpenSSH
+  package:
+    name:
+      - "{{ SSH_SERVER_PACKAGE }}"
+    state: present
+
 - name: Install Sudo
   package:
     name: 
       - sudo
+    state: present

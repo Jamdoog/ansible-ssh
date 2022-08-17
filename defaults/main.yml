@@ -9,5 +9,10 @@ NEW_USERS:
 SUDOERSTEMPLATE: "sudoers"
 SSHDTEMPLATE: sshd_config
 SSH_SERVER_PACKAGE: "openssh-server"
-SSH_PORT: 22
+SSHD_CONFIG: "/etc/ssh/sshd_config"
+SSH_DNS: "no"
+SSH_EMPTY_PASSWORD: "no"
+PASSWORD_AUTHENTICATION: "no"
+ROOT_LOGIN: "no"
+SSH_PORT: "9030"
 SSH_KEY_ROOT: ""

@@ -1,0 +1,10 @@
+- name: Create SSHD Config File (openSUSE Tumbleweed)
+  file:
+    path: /etc/ssh/sshd_config.d/ansible.conf
+    state: touch
+    mode: 0644
+    owner: root
+
+- name: Change SSH Server Configuration File Path (OpenSUSE Tumbleweed)
+  set_fact: SSHD_CONFIG="/etc/ssh/sshd_config.d/ansible.conf"
+

@@ -16,14 +16,7 @@ This role will do the following:
 - Install the correct openssh-server package for the operating system
 - Modify the sudo configuration file and use the "sudo" group
 - If provided, create new users with information provided. This can create multiple users
-- Modify sshd_config and set sane, secure settings `(See: templates/sshd_config)`
-
-Future Intentions of this role
-------------------------------
-
-I intend to do the following, eventually:
-
-- Custom SSHD configuration settings
+- Modify sshd_config and set sane, secure settings `See variables`
 
 
 Role Variables
@@ -38,14 +31,23 @@ NEW_USERS:
     password: ""
     authorized_keys: ""
 
-
 SUDOERSTEMPLATE: "sudoers"
 SSHDTEMPLATE: sshd_config
 SSH_SERVER_PACKAGE: "openssh-server"
-SSH_PORT: 22
+SSHD_CONFIG: "/etc/ssh/sshd_config"
+SSH_DNS: "no"
+SSH_EMPTY_PASSWORD: "no"
+PASSWORD_AUTHENTICATION: "no"
+ROOT_LOGIN: "no"
+SSH_PORT: "9030"
 SSH_KEY_ROOT: ""
 ```
 
+Optional variables:
+
+```yml
+LISTEN_ADDRESS: {IP}
+```
 
 Dependencies
 ------------
@@ -65,13 +67,20 @@ Example Playbook
         groups: "sudo"
         comment: "Ansible"
         shell: "/bin/bash"
-        password: "password"
-        authorized_keys: "https://5v.vc/key"
+        password: ""
+        authorized_keys: ""
+
     SUDOERSTEMPLATE: "sudoers"
     SSHDTEMPLATE: sshd_config
     SSH_SERVER_PACKAGE: "openssh-server"
-    SSH_PORT: 22
-    SSH_KEY_ROOT: "https://5v.vc/key"
+    SSHD_CONFIG: "/etc/ssh/sshd_config"
+    SSH_DNS: "no"
+    SSH_EMPTY_PASSWORD: "no"
+    PASSWORD_AUTHENTICATION: "no"
+    ROOT_LOGIN: "no"
+    SSH_PORT: "9030"
+    SSH_KEY_ROOT: ""
+
 
   roles:
     - role: jamdoog.ssh
