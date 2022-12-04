@@ -2,14 +2,9 @@
   set_fact: SSH_SERVER_PACKAGE="openssh"
   when: ansible_os_family in ["Suse"]
 
-- name: Install OpenSSH
+- name: Install packages
   package:
     name:
       - "{{ SSH_SERVER_PACKAGE }}"
-    state: present
-
-- name: Install Sudo
-  package:
-    name: 
       - sudo
     state: present

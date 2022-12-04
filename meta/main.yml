@@ -2,7 +2,7 @@ galaxy_info:
   author: James Ledger
   description: Ansible role to install and configure openssh-server 
   company: James Ledger
-  role_name: ssh
+  role_name: jamdoog.ssh
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value

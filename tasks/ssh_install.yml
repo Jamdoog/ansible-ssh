@@ -15,7 +15,8 @@
 - name: Ensure SSHD Daemon is running
   service:
     name: sshd
-    state: started
+    state: restarted
+    enabled: true
 
 - name: Update SSH Security (None Conditional)
   lineinfile:

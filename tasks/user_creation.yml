@@ -7,4 +7,3 @@
     append: yes
     password: "{{ item.value.password | password_hash('sha512') }}"
   with_dict: "{{ NEW_USERS }}"
-

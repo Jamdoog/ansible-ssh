@@ -161,8 +161,6 @@ provisioner:
     defaults:
       interpreter_python: auto_silent
       callback_whitelist: profile_tasks, timer, yaml
-    ssh_connection:
-      pipelining: false
 verifier:
   name: ansible
 lint: |
