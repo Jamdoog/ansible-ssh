@@ -4,6 +4,7 @@
     state: present
     key: "{{ item.value.authorized_keys }}"
   with_dict: "{{ NEW_USERS }}"
+  no_log: True
 
 - name: Install SSH Key (root)
   ansible.posix.authorized_key:
